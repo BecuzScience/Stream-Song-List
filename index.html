@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Song List</title>
+<style>
+body{font-family:Segoe UI,Arial,sans-serif;background:#181818;color:#fff;margin:0;padding:16px}
+main{max-width:900px;margin:0 auto}h1{margin:.2em 0}p{color:#aaa}
+input{width:100%;box-sizing:border-box;padding:12px;font-size:16px;border-radius:8px;border:1px solid #444;background:#2b2b2b;color:#fff}
+table{width:100%;border-collapse:collapse;margin-top:12px}td,th{padding:8px;text-align:left;border-bottom:1px solid #333}
+th{color:#aaa}tr:hover td{background:#2b2b2b}code{background:#333;padding:2px 6px;border-radius:4px;color:#4CAF50}
+</style></head><body><main>
+<h1>Song List</h1>
+<p>Request a song in chat with <code>!sr song name</code> or with the Song Request channel point reward. <span id="count"></span></p>
+<input id="q" type="search" placeholder="Search songs or artists" autofocus>
+<table><thead><tr><th>Song</th><th>Artist</th></tr></thead><tbody id="rows"></tbody></table>
+</main><script>
+const songs=[];
+const rows=document.getElementById('rows'),q=document.getElementById('q');
+document.getElementById('count').textContent=songs.length+' songs.';
+function esc(s){return s.replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function show(){const f=q.value.toLowerCase();rows.innerHTML=songs.filter(s=>!f||(s.t+' '+s.a).toLowerCase().includes(f)).map(s=>'<tr><td>'+esc(s.t)+'</td><td>'+esc(s.a)+'</td></tr>').join('')}
+q.addEventListener('input',show);show();
+</script></body></html>
